@@ -15,4 +15,20 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+      run: |
+        docker build . --file Dockerfile --tag slg:main
+    - name: Upload image
+      uses: ishworkh/docker-image-artifact-upload@v1
+      with:
+        image: "slg:main"
+    - name: upload jars
+      run: docker run -it -v $PWD:/vol --entrypoint /bin/bash slg:main  -c 'cp -R /opt/binaries/ /vol'
+
+    - uses: actions/upload-artifact@v3
+      name : upload slg
+      with:
+         name: slg jars
+         path: "*.jar"
+
+        
+    
