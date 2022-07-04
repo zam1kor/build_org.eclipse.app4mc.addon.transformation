@@ -22,7 +22,7 @@ jobs:
       with:
         image: "slg:main"
     - name: upload jars
-      run: docker run -it -v $PWD:/vol --entrypoint /bin/bash slg:main  -c 'cp -R /opt/binaries/ /vol'
+      run: docker run  -v $PWD:/vol --entrypoint /bin/bash slg:main  -c 'cp -R /opt/binaries/ /vol'
 
     - uses: actions/upload-artifact@v3
       name : upload slg
